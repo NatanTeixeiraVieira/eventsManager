@@ -23,5 +23,14 @@
   <main class="container mx-auto mt-8">
     <h1 class="text-3xl font-bold text-center">Gerenciador de Eventos</h1>
   </main>
+
+  <?php
+include './class/User.php'; // Arquivo da classe User
+
+$user = new User("Dyeison", "Dyeison@exemplo.com", "minhasenha123");
+$result = $user->createUser();
+
+echo $result; // Mostra o resultado da criação do usuário
+?>
 </body>
 </html>
