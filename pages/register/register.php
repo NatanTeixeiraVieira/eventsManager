@@ -7,7 +7,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $email = isset($_POST['email']) ? $_POST['email'] : null;
     $password = isset($_POST['password']) ? $_POST['password'] : null;
 
-    echo $username . ', ' . $email . ', ' . $password;
 
     if (!empty($username) && !empty($email) && !empty($password)) {
         $user = new User($username, $email, $password);
