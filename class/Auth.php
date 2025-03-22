@@ -14,7 +14,7 @@ class Auth {
 
   public static function setConnection() {
     if (self::$conn === null) {
-        self::$conn = new mysqli('localhost', 'root', 'admin', 'eventsmanager');
+        self::$conn = new mysqli('localhost', 'root', 'root', 'eventsmanager');
 
         // Verificar se a conexão falhou
         if (self::$conn->connect_error) {

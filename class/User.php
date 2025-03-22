@@ -16,7 +16,7 @@ class User {
 
     public static function setConnection() {
       if (self::$conn === null) {
-          self::$conn = new mysqli('localhost', 'root', 'admin', 'eventsmanager');
+          self::$conn = new mysqli('localhost', 'root', 'root', 'eventsmanager');
 
           if (self::$conn->connect_error) {
               die("Conexão falhou: " . self::$conn->connect_error);
