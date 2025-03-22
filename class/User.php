@@ -18,7 +18,6 @@ class User {
       if (self::$conn === null) {
           self::$conn = new mysqli('localhost', 'root', 'admin', 'eventsmanager');
 
-          // Verificar se a conexão falhou
           if (self::$conn->connect_error) {
               die("Conexão falhou: " . self::$conn->connect_error);
           }

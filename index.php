@@ -8,7 +8,6 @@
 </head>
 <body class="bg-gray-100">
   <header class="flex justify-between items-center p-4 bg-white shadow-md">
-    <!-- Logo no lado esquerdo -->
     <div class="text-2xl font-bold">
       <img src="https://via.placeholder.com/50" alt="Logo" class="inline-block w-12 h-12 mr-2">
       <span>Logo Aleatória</span>
