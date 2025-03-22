@@ -25,12 +25,12 @@
   </main>
 
   <?php
-include './class/User.php'; // Arquivo da classe User
+include './class/User.php';
 
-$user = new User("Dyeison", "Dyeison@exemplo.com", "minhasenha123");
+$user = new User(null, "teste2@exemplo.com", "minhasenha123");
 $result = $user->createUser();
 
-echo $result; // Mostra o resultado da criação do usuário
+echo $result;
 ?>
 </body>
 </html>
