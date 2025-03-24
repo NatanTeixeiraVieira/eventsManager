@@ -14,7 +14,7 @@
 
     <div>
       <ul>
-        <li>Ver eventos</li>
+        <li><a href="./pages/events/index.php">Meus eventos</a></li>
       </ul>
     </div>
     
