@@ -9,8 +9,13 @@
 <body class="bg-gray-100">
   <header class="flex justify-between items-center p-4 bg-white shadow-md">
     <div class="text-2xl font-bold">
-      <img src="https://via.placeholder.com/50" alt="Logo" class="inline-block w-12 h-12 mr-2">
-      <span>Logo Aleatória</span>
+      <img src="./public/events.png" alt="Logo" class="inline-block w-16 h-16 mr-2">
+    </div>
+
+    <div>
+      <ul>
+        <li>Ver eventos</li>
+      </ul>
     </div>
     
     <div class="space-x-4">
@@ -23,13 +28,5 @@
     <h1 class="text-3xl font-bold text-center">Gerenciador de Eventos</h1>
   </main>
 
-  <?php
-include './class/User.php';
-
-$user = new User(null, "teste2@exemplo.com", "minhasenha123");
-$result = $user->createUser();
-
-echo $result;
-?>
 </body>
 </html>

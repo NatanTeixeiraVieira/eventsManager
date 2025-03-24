@@ -1,33 +1,23 @@
 <?php
-class Auth {
+
+require_once 'DbConnection.php';
+
+class Auth extends DbConnection{
   private string $email;
   private string $password;
-  private static $conn;
 
   public function __construct($email, $password) {
     $this->email = $email;
     $this->password = $password;
-    if (self::$conn === null) {
-      self::setConnection();
-    }
-  }
 
-  public static function setConnection() {
-    if (self::$conn === null) {
-        self::$conn = new mysqli('localhost', 'root', 'root', 'eventsmanager');
-
-        // Verificar se a conexão falhou
-        if (self::$conn->connect_error) {
-            die("Conexão falhou: " . self::$conn->connect_error);
-        }
-    }
+    $this->conn = DbConnection::getConnection();
   }
 
   public function login() {
     try {
       // Prepara a query de login
       $sql = "SELECT * FROM users WHERE email = ?";
-      $stmt = self::$conn->prepare($sql);
+      $stmt = $this->conn->prepare($sql);
 
       // Verifica se a query foi preparada corretamente
       if (!$stmt) {
