@@ -44,8 +44,12 @@
                             <td class="border p-2"><?= date("d/m/Y H:i", strtotime($event['date'])); ?></td>
                             <td class="border p-2"><?= htmlspecialchars($event['created_by']); ?></td>
                             <td class="border p-2"><?= date("d/m/Y H:i", strtotime($event['created_at'])); ?></td>
-                            <td class="border p-2">
+                            <td class="border p-2 flex justify-center gap-2">
                                 <a href="upsert?id=<?= $event['id']; ?>" class="bg-yellow-500 text-white px-3 py-1 rounded-lg hover:bg-yellow-600">Atualizar</a>
+                                <form method="POST" action="delete.php" onsubmit="return confirm('Tem certeza que deseja excluir este evento?');">
+                                    <input type="hidden" name="delete_id" value="<?= $event['id'] ?>">
+                                    <button type="submit" class="bg-red-500 text-white px-3 py-1 rounded-lg hover:bg-red-600">Deletar</button>
+                                </form>
                             </td>
                         </tr>
                     <?php endforeach; ?>

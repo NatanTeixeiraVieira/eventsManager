@@ -54,7 +54,7 @@
       $result = $stmt->get_result();
       $fetchResponse = $result->fetch_all(MYSQLI_ASSOC);
       return reset($fetchResponse);
-  }
+   }
 
     // public function listEvents() {
     //     $stmt = self::conn->query("SELECT * FROM events");
@@ -100,6 +100,12 @@
           return false;
       }
   }
+
+  public function deleteEventById($id) {
+    $stmt = $this->conn->prepare("DELETE FROM events e WHERE e.id = ?");
+    $stmt->bind_param("i", $id);
+    return $stmt->execute();
+}
 
     public function participateEvent($event_id) {
         $loggedUserId = $_SESSION['user_id'];
