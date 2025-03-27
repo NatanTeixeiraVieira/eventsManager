@@ -19,7 +19,7 @@
         <h2 class="text-3xl font-bold text-center mb-6">Meus Eventos</h2>
 
         <div class="mb-4 text-right">
-            <a href="create.php" class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600">Criar Evento</a>
+            <a href="upsert" class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600">Criar Evento</a>
         </div>
 
         <table class="w-full border-collapse border border-gray-300">
@@ -31,6 +31,7 @@
                     <th class="border p-2">Data e Hora</th>
                     <th class="border p-2">Criado por</th>
                     <th class="border p-2">Criado em</th>
+                    <th class="border p-2">Ações</th>
                 </tr>
             </thead>
             <tbody>
@@ -43,6 +44,9 @@
                             <td class="border p-2"><?= date("d/m/Y H:i", strtotime($event['date'])); ?></td>
                             <td class="border p-2"><?= htmlspecialchars($event['created_by']); ?></td>
                             <td class="border p-2"><?= date("d/m/Y H:i", strtotime($event['created_at'])); ?></td>
+                            <td class="border p-2">
+                                <a href="upsert?id=<?= $event['id']; ?>" class="bg-yellow-500 text-white px-3 py-1 rounded-lg hover:bg-yellow-600">Atualizar</a>
+                            </td>
                         </tr>
                     <?php endforeach; ?>
                 <?php else : ?>

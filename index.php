@@ -12,11 +12,11 @@
       <img src="./public/events.png" alt="Logo" class="inline-block w-16 h-16 mr-2">
     </div>
 
-    <div>
+    <!-- <div>
       <ul>
         <li><a href="./pages/events/index.php">Meus eventos</a></li>
       </ul>
-    </div>
+    </div> -->
     
     <div class="space-x-4">
       <a href="./pages/login/index.html" class="text-blue-500 font-medium hover:underline">Login</a>

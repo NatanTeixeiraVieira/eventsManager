@@ -45,6 +45,17 @@
       return $result->fetch_all(MYSQLI_ASSOC);
     }
 
+    
+    public function getEventById($id) {
+      $stmt = $this->conn->prepare("SELECT * FROM events e WHERE e.id = ?");
+      $stmt->bind_param("i", $id);
+      $stmt->execute();
+
+      $result = $stmt->get_result();
+      $fetchResponse = $result->fetch_all(MYSQLI_ASSOC);
+      return reset($fetchResponse);
+  }
+
     // public function listEvents() {
     //     $stmt = self::conn->query("SELECT * FROM events");
     //     return $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -55,20 +66,40 @@
 
       if (!isset($_SESSION['user_id'])) {
         return false; // Usuário não autenticado
+     }
+
+      $loggedUserId = $_SESSION['user_id'];
+
+      try {
+          $stmt = $this->conn->prepare("INSERT INTO events (name, description, location, date, created_by) VALUES (?, ?, ?, ?, ?)");
+          $stmt->bind_param("ssssi", $name, $description, $location, $dateTime, $loggedUserId);
+          return $stmt->execute();
+      } catch (Exception $e) {
+        echo "Erro ao criar evento: " . $e->getMessage();
+          error_log("Erro ao criar evento: " . $e->getMessage());
+          return false;
+      }
     }
 
-    $loggedUserId = $_SESSION['user_id'];
+    public function updateEvent($id, $name, $description, $location, $dateTime) {
+      session_start();
 
-    try {
-        $stmt = $this->conn->prepare("INSERT INTO events (name, description, location, date, created_by) VALUES (?, ?, ?, ?, ?)");
-        $stmt->bind_param("ssssi", $name, $description, $location, $dateTime, $loggedUserId);
-        return $stmt->execute();
-    } catch (Exception $e) {
-      echo "Erro ao criar evento: " . $e->getMessage();
-        error_log("Erro ao criar evento: " . $e->getMessage());
-        return false;
-    }
-    }
+      if (!isset($_SESSION['user_id'])) {
+        return false; // Usuário não autenticado
+     }
+
+      $loggedUserId = $_SESSION['user_id'];
+
+      try {
+          $stmt = $this->conn->prepare("UPDATE events SET name = ?, description = ?, location = ?, date = ? WHERE id = ?");
+          $stmt->bind_param("ssssi", $name, $description, $location, $dateTime, $id);
+          return $stmt->execute();
+      } catch (Exception $e) {
+          echo "Erro ao atualizar evento: " . $e->getMessage();
+          error_log("Erro ao atualizar evento: " . $e->getMessage());
+          return false;
+      }
+  }
 
     public function participateEvent($event_id) {
         $loggedUserId = $_SESSION['user_id'];
