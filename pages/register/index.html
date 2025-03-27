@@ -5,7 +5,48 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Cadastro</title>
-  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="styles-register.css">
+</head>
+
+<body>
+  <div class="container">
+    
+    <!-- Botão "Voltar" -->
+    <a href="../../index.php" class="back-btn">Voltar</a>
+    
+    <h2>Cadastro</h2>
+    
+    <form action="register.php" method="POST">
+      <div class="form-group">
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username" required>
+      </div>
+
+      <div class="form-group">
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required>
+      </div>
+
+      <div class="form-group">
+        <label for="password">Senha:</label>
+        <input type="password" id="password" name="password" required oninput="validatePassword()">
+
+        <!-- Lista de requisitos de senha -->
+        <ul>
+          <li id="requirement-0" class="text-red">- Pelo menos uma letra maiúscula</li>
+          <li id="requirement-1" class="text-red">- Pelo menos uma letra minúscula</li>
+          <li id="requirement-2" class="text-red">- Pelo menos um número</li>
+          <li id="requirement-3" class="text-red">- Pelo menos um caractere especial</li>
+          <li id="requirement-4" class="text-red">- Pelo menos 8 caracteres</li>
+        </ul>
+      </div>
+
+      <div class="form-group">
+        <button type="submit" disabled>Cadastrar</button>
+      </div>
+    </form>
+  </div>
+
   <script>
     // Função para validar a senha e atualizar a lista de requisitos
     function validatePassword() {
@@ -24,68 +65,19 @@
       passwordRequirements.forEach((req, index) => {
         const li = document.getElementById(`requirement-${index}`);
         if (req.regex.test(password)) {
-          li.classList.remove("text-red-500");
-          li.classList.add("text-green-500");
+          li.classList.remove("text-red");
+          li.classList.add("text-green");
         } else {
-          li.classList.remove("text-green-500");
-          li.classList.add("text-red-500");
+          li.classList.remove("text-green");
+          li.classList.add("text-red");
           isValid = false;
         }
       });
 
       // Habilitar ou desabilitar o botão com base na validade da senha
-      const submitButton = document.querySelector("button[type='submit']");
-      submitButton.disabled = !isValid;
+      document.querySelector("button[type='submit']").disabled = !isValid;
     }
   </script>
-</head>
 
-<body class="bg-gray-100 h-screen flex items-center justify-center">
-  <div class="bg-white p-8 rounded-lg shadow-lg w-96 relative">
-    
-    <!-- Botão "Voltar" no topo à esquerda -->
-    <div class="absolute top-4 left-4">
-      <a href="../../index.php" class="text-blue-500 font-medium hover:text-blue-600">Voltar</a>
-    </div>
-    
-    <h2 class="text-2xl font-bold mb-6 text-center">Cadastro</h2>
-    <form action="register.php" method="POST">
-      <div class="mb-4">
-        <label for="username" class="block text-gray-700 font-medium mb-2">Username:</label>
-        <input type="text" id="username" name="username" required
-               class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
-      </div>
-
-      <div class="mb-4">
-        <label for="email" class="block text-gray-700 font-medium mb-2">Email:</label>
-        <input type="email" id="email" name="email" required
-               class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
-      </div>
-
-      <div class="mb-6">
-        <label for="password" class="block text-gray-700 font-medium mb-2">Senha:</label>
-        <input type="password" id="password" name="password" required
-               class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-               oninput="validatePassword()">
-
-        <!-- Lista de requisitos de senha -->
-        <ul class="mt-4 text-sm">
-          <li id="requirement-0" class="text-red-500">- Pelo menos uma letra maiúscula</li>
-          <li id="requirement-1" class="text-red-500">- Pelo menos uma letra minúscula</li>
-          <li id="requirement-2" class="text-red-500">- Pelo menos um número</li>
-          <li id="requirement-3" class="text-red-500">- Pelo menos um caractere especial</li>
-          <li id="requirement-4" class="text-red-500">- Pelo menos 8 caracteres</li>
-        </ul>
-      </div>
-
-      <div class="mb-4">
-        <button type="submit" class="w-full bg-blue-500 text-white font-bold py-2 px-4 rounded-lg hover:bg-blue-600 transition"
-                disabled>
-          Cadastrar
-        </button>
-      </div>
-    </form>
-  </div>
 </body>
-
 </html>
