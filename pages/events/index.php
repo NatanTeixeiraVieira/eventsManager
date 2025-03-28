@@ -1,7 +1,7 @@
 <?php
     require_once '../../class/Event.php';
     $eventObj = new Event();
-    $events = $eventObj->listEvents();
+    $events = $eventObj->listEventsByUser();
 ?>
 
 <!DOCTYPE html>
@@ -14,8 +14,23 @@
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 
-<body class="bg-gray-100 min-h-screen flex flex-col items-center py-10">
-    <div class="w-full max-w-6xl bg-white p-6 rounded-lg shadow-md">
+<body class="bg-gray-100 min-h-screen flex flex-col items-center ">
+    <header class="flex justify-start gap-10 w-full items-center p-4 bg-white shadow-md">
+        <div class="text-2xl font-bold">
+        <img src="../../public/events.png" alt="Logo" class="inline-block w-16 h-16 mr-2">
+        </div>
+
+        <div>
+        <ul class="flex justify-around items-center w-[28rem] ">
+            <li class="text-blue-500 hover:text-blue-700"><a href="/eventsManager/dashboard.php">Ver eventos</a></li>
+            <li class="text-blue-500 hover:text-blue-700"><a href="/eventsManager/pages/events">Meus eventos</a></li>
+            <li class="text-blue-500 hover:text-blue-700"><a href="/eventsManager/pages/events/upsert" class="">Agendar evento</a></li>
+        </ul>
+        </div>
+        
+        
+    </header>
+    <main class="w-full max-w-6xl bg-white p-6 rounded-lg shadow-md mt-8">
         <h2 class="text-3xl font-bold text-center mb-6">Meus Eventos</h2>
 
         <div class="mb-4 text-right">
@@ -60,7 +75,7 @@
                 <?php endif; ?>
             </tbody>
         </table>
-    </div>
+    </main>
 </body>
 
 </html>

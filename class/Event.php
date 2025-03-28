@@ -20,6 +20,30 @@
     }
 
     public function listEvents() {
+      // session_start();
+
+      $loggedUserId = $_SESSION['user_id'];
+      $sql = "SELECT 
+        e.id, 
+        e.name, 
+        e.description, 
+        e.location, 
+        e.date, 
+        u.name AS created_by, 
+        e.created_at, 
+        e.updated_at
+      FROM events e
+      LEFT JOIN users u ON e.created_by = u.id
+      ORDER BY e.date ASC;";
+
+      $stmt = $this->conn->prepare($sql);
+      $stmt->execute();
+
+      $result = $stmt->get_result();
+      return $result->fetch_all(MYSQLI_ASSOC);
+    }
+
+    public function listEventsByUser() {
       session_start();
 
       $loggedUserId = $_SESSION['user_id'];
