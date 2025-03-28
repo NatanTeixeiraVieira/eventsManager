@@ -17,6 +17,18 @@
 
       $this->conn = DbConnection::getConnection();
       $this->conn->query($sql);
+
+      $sql = "CREATE TABLE IF NOT EXISTS user_events (
+        id INT(11) AUTO_INCREMENT PRIMARY KEY,
+        user_id INT(11) NOT NULL,
+        event_id INT(11) NOT NULL,
+        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+        updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+      )";
+
+
+      $this->conn = DbConnection::getConnection();
+      $this->conn->query($sql);
     }
 
     public function listEvents() {
@@ -129,12 +141,14 @@
     $stmt = $this->conn->prepare("DELETE FROM events e WHERE e.id = ?");
     $stmt->bind_param("i", $id);
     return $stmt->execute();
-}
+  }
 
-    public function participateEvent($event_id) {
-        $loggedUserId = $_SESSION['user_id'];
-        $stmt = self::conn->prepare("INSERT INTO participants (event_id, user_id) VALUES (?, ?)");
-        return $stmt->execute([$event_id, $loggedUserId]);
-    }
+  public function participateEvent($event_id) {
+    $loggedUserId = $_SESSION['user_id'];
+    $stmt = $this->conn->prepare("INSERT INTO user_events (event_id, user_id) VALUES (?, ?)");
+    $stmt->bind_param("ii", $event_id, $loggedUserId);
+
+    return $stmt->execute();
+}
   }
 ?>
