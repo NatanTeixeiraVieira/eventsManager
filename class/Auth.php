@@ -18,35 +18,36 @@ class Auth extends DbConnection{
       // Prepara a query de login
       $sql = "SELECT * FROM users WHERE email = ?";
       $stmt = $this->conn->prepare($sql);
-
+  
       // Verifica se a query foi preparada corretamente
       if (!$stmt) {
         throw new Exception('Erro ao preparar a consulta SQL.');
       }
-
-      // Faz o bind dos parâmetros
-      $stmt->bind_param("s", $this->email); // 's' indica que é uma string
-
+  
+      // Faz o bind dos parâmetros (usando bind_param do mysqli)
+      $stmt->bind_param("s", $this->email); // 's' para string
+  
       // Executa a query
       $stmt->execute();
-
+  
       // Obtém o resultado
       $result = $stmt->get_result();
       $user = $result->fetch_assoc();
-
+  
       if ($user && password_verify($this->password, $user['password'])) {
-        // Login bem-sucedido, você pode iniciar a sessão aqui
+        // Login bem-sucedido
         session_start();
         $_SESSION['user_id'] = $user['id'];
-        return true;
+        return "success"; // Retorna sucesso no login
       } else {
-        return false;
+        // Retorna erro genérico, sem informar se foi o email ou a senha
+        return "invalid_credentials";
       }
     } catch (Exception $e) {
-      // Exibe o erro para depuração
-      echo "Erro durante o login: " . $e->getMessage();
-      return false;
+      // Em caso de erro na execução da consulta SQL
+      return "error"; // Retorna um erro genérico para o sistema
     }
   }
+  
 }
 ?>

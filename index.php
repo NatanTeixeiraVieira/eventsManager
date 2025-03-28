@@ -15,8 +15,8 @@
       <h1 class="text-2xl font-bold text-gray-800">Typecode Events</h1>
     </div>
     <nav class="space-x-4">
-      <a href="./pages/login/index.html" class="text-blue-500 font-medium hover:underline">Login</a>
-      <a href="./pages/register/index.html" class="text-blue-500 font-medium hover:underline">Cadastro</a>
+      <a href="./pages/login/index.php" class="text-blue-500 font-medium hover:underline">Login</a>
+      <a href="./pages/register/index.php" class="text-blue-500 font-medium hover:underline">Cadastro</a>
     </nav>
   </header>
 

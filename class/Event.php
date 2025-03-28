@@ -48,8 +48,18 @@
       LEFT JOIN users u ON e.created_by = u.id
       ORDER BY e.date ASC;";
 
-      $stmt = $this->conn->prepare($sql);
-      $stmt->execute();
+if (!$stmt = $this->conn->prepare($sql)) {
+  // Exibir o erro detalhado da consulta
+  echo "Erro ao preparar a consulta: " . $this->conn->error;
+  return false;
+}
+
+// Executar a consulta
+if (!$stmt->execute()) {
+  // Exibir o erro detalhado na execução
+  echo "Erro ao executar a consulta: " . $stmt->error;
+  return false;
+}
 
       $result = $stmt->get_result();
       return $result->fetch_all(MYSQLI_ASSOC);
