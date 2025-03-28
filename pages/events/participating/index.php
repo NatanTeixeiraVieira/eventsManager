@@ -1,41 +1,38 @@
 <?php
-  session_start();
-  require_once './class/Event.php';
-  if (!isset($_SESSION['user_id'])) {
-      header('Location: ./pages/login/index.html');
-      exit();
-  }
-  $eventObj = new Event();
-  $events = $eventObj->listEvents();
+    require_once '../../../class/Event.php';
+    $eventObj = new Event();
+    $events = $eventObj->getEventsParticipating();
 ?>
 
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Eventos</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <title>Dashboard</title>
 </head>
-<body>
-    <header der class="flex justify-start gap-10 w-full items-center p-4 bg-white shadow-md">
+
+<body class="bg-gray-100 min-h-screen flex flex-col items-center ">
+    <header class="flex justify-start gap-10 w-full items-center p-4 bg-white shadow-md">
         <div class="text-2xl font-bold">
-        <img src="./public/events.png" alt="Logo" class="inline-block w-16 h-16 mr-2">
+        <img src="../../../public/events.png" alt="Logo" class="inline-block w-16 h-16 mr-2">
         </div>
 
         <div>
-        <ul class="flex justify-around items-center w-[40rem] ">
+        <ul class="flex justify-around items-center w-[28rem] ">
             <li class="text-blue-500 hover:text-blue-700"><a href="/eventsManager/dashboard.php">Ver eventos</a></li>
             <li class="text-blue-500 hover:text-blue-700"><a href="/eventsManager/pages/events">Meus eventos</a></li>
             <li class="text-blue-500 hover:text-blue-700"><a href="/eventsManager/pages/events/upsert" class="">Agendar evento</a></li>
-            <li class="text-blue-500 hover:text-blue-700"><a href="/eventsManager/pages/events/participating" class="">Eventos participando</a></li>
         </ul>
         </div>
         
         
     </header>
+    <main class="w-full max-w-6xl bg-white p-6 rounded-lg shadow-md mt-8">
+        <h2 class="text-3xl font-bold text-center mb-6">Eventos que estou participando</h2>
 
-    <div class="w-full bg-white p-6 rounded-lg shadow-md">
         <table class="w-full border-collapse border border-gray-300">
             <thead>
                 <tr class="bg-gray-200">
@@ -44,8 +41,6 @@
                     <th class="border p-2">Local</th>
                     <th class="border p-2">Data e Hora</th>
                     <th class="border p-2">Criado por</th>
-                    <th class="border p-2">Criado em</th>
-                    <th class="border p-2">Ações</th>
                 </tr>
             </thead>
             <tbody>
@@ -57,22 +52,16 @@
                             <td class="border p-2"><?= htmlspecialchars($event['location']); ?></td>
                             <td class="border p-2"><?= date("d/m/Y H:i", strtotime($event['date'])); ?></td>
                             <td class="border p-2"><?= htmlspecialchars($event['created_by']); ?></td>
-                            <td class="border p-2"><?= date("d/m/Y H:i", strtotime($event['created_at'])); ?></td>
-                            <td class="border p-2 flex justify-center gap-2">
-                                <form method="POST" action="participate.php">
-                                    <input type="hidden" name="event_id" value="<?= $event['id'] ?>">
-                                    <button type="submit" class="bg-green-500 text-white px-3 py-1 rounded-lg hover:bg-green-600">Participar</button>
-                                </form>
-                            </td>
                         </tr>
                     <?php endforeach; ?>
                 <?php else : ?>
                     <tr>
-                        <td colspan="7" class="border p-4 text-center text-gray-500">Nenhum evento encontrado.</td>
+                        <td colspan="7" class="border p-4 text-center text-gray-500">Não está participando de nenhum evento até o momento.</td>
                     </tr>
                 <?php endif; ?>
             </tbody>
         </table>
-    </div>
+    </main>
 </body>
+
 </html>

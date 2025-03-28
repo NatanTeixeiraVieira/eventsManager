@@ -143,6 +143,30 @@
     return $stmt->execute();
   }
 
+  public function getEventsParticipating() {
+    session_start();
+
+    $loggedUserId = $_SESSION['user_id'];
+    $sql = "SELECT 
+      e.id, 
+      e.name, 
+      e.description, 
+      e.location, 
+      e.date, 
+      u.name AS created_by
+    FROM events e
+    LEFT JOIN users u ON e.created_by = u.id
+    WHERE e.id IN (SELECT event_id FROM user_events WHERE user_id = ?)
+    ORDER BY e.date ASC;";
+
+    $stmt = $this->conn->prepare($sql);
+    $stmt->bind_param("i", $loggedUserId);
+    $stmt->execute();
+
+    $result = $stmt->get_result();
+    return $result->fetch_all(MYSQLI_ASSOC);
+  }
+
   public function participateEvent($event_id) {
     $loggedUserId = $_SESSION['user_id'];
     $stmt = $this->conn->prepare("INSERT INTO user_events (event_id, user_id) VALUES (?, ?)");
