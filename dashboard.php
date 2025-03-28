@@ -24,7 +24,7 @@ if (!isset($_SESSION['user_id'])) {
       <ul class="flex justify-around items-center w-[28rem] ">
         <li class="text-blue-500 hover:text-blue-700">Ver eventos</li>
         <li class="text-blue-500 hover:text-blue-700">Meus eventos</li>
-        <li class="text-blue-500 hover:text-blue-700"><a href="./pages/events/index.html" class="">Agendar evento</a></li>
+        <li class="text-blue-500 hover:text-blue-700"><a href="./pages/events/create/index.html" class="">Agendar evento</a></li>
       </ul>
     </div>
     
