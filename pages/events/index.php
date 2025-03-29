@@ -1,7 +1,7 @@
 <?php
     require_once '../../class/Event.php';
     require_once '../../class/Auth.php';
-  Auth::requireAuth();
+    Auth::requireAuth();
     $eventObj = new Event();
     $events = $eventObj->listEventsByUser();
 ?>

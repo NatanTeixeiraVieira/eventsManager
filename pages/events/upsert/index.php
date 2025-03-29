@@ -1,5 +1,5 @@
 <?php
-    require_once './events.php';
+    require_once './upsert.php';
     require_once '../../../class/Auth.php';
     Auth::requireAuth();
 
@@ -42,7 +42,7 @@
       <?= $isEditing ? 'Editar Evento' : 'Criar Evento' ?>
     </h2>
 
-    <form action="events.php" method="POST">
+    <form action="upsert.php" method="POST">
       <?php if ($isEditing): ?>
       <input type="hidden" name="id" value="<?= htmlspecialchars($event['id']) ?>">
       <?php endif; ?>

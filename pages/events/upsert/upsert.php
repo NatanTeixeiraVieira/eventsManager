@@ -20,6 +20,13 @@
         $location = trim($_POST['location']);
         $dateTime = $_POST['date_time'];
 
+        $currentDateTime = time(); 
+
+        if ($dateTime < $currentDateTime) {
+            echo "A data e hora selecionadas já passaram!";
+            exit;
+        }
+
         if (empty($name) || empty($description) || empty($location) || empty($dateTime)) {
             echo "Todos os campos são obrigatórios!";
             exit;

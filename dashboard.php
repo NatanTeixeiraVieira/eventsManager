@@ -1,5 +1,4 @@
 <?php
-  session_start();
   require_once './class/Event.php';
   require_once './class/Auth.php';
   Auth::requireAuth();

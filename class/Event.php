@@ -49,7 +49,7 @@ class Event extends DbConnection {
     }
 
     public function listEventsByUser() {
-        session_start();
+        // session_start();
 
         $loggedUserId = $_SESSION['user_id'];
         $sql = "SELECT 
