@@ -1,5 +1,7 @@
 <?php
     require_once './events.php';
+    require_once '../../../class/Auth.php';
+    Auth::requireAuth();
 
 ?>
 <!DOCTYPE html>

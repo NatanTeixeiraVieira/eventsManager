@@ -4,16 +4,11 @@ require_once 'DbConnection.php';
 
 
 class Auth extends DbConnection {
-  private string $email;
-  private string $password;
-
-  public function __construct($email, $password) {
-      $this->email = $email;
-      $this->password = $password;
+  public function __construct() {
       $this->conn = $this->getConnection();
   }
 
-  public function login() {
+  public function login($email, $password) {
       try {
           $sql = "SELECT * FROM users WHERE email = ?";
           $stmt = $this->conn->prepare($sql);
@@ -30,6 +25,21 @@ class Auth extends DbConnection {
       } catch (Exception $e) {
           return "error";
       }
+  }
+
+  public function logout() {
+    session_start();
+    session_destroy();
+    header("Location: /eventsManager/pages/login");
+    exit;
+  }
+
+  public static function requireAuth() {
+    session_start();
+    if (!isset($_SESSION['user_id'])) {
+        header("Location: /eventsManager/pages/login");
+        exit;
+    }
   }
 }
 

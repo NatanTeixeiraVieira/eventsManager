@@ -1,10 +1,9 @@
 <?php
   session_start();
   require_once './class/Event.php';
-  if (!isset($_SESSION['user_id'])) {
-      header('Location: ./pages/login/index.html');
-      exit();
-  }
+  require_once './class/Auth.php';
+  Auth::requireAuth();
+
   $eventObj = new Event();
   $events = $eventObj->listEvents();
 ?>
@@ -29,7 +28,8 @@
             <li class="text-blue-500 hover:text-blue-700"><a href="/eventsManager/pages/events">Meus eventos</a></li>
             <li class="text-blue-500 hover:text-blue-700"><a href="/eventsManager/pages/events/upsert" class="">Criar evento</a></li>
             <li class="text-blue-500 hover:text-blue-700"><a href="/eventsManager/pages/events/participating" class="">Eventos participando</a></li>
-        </ul>
+            <li class="text-blue-500 hover:text-blue-700"><a href="/eventsManager/logout.php">Sair</a></li>
+            </ul>   
         </div>
         
         

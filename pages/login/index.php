@@ -8,8 +8,8 @@
     $password = isset($_POST['password']) ? $_POST['password'] : null;
 
     if ($email && $password) {
-      $auth = new Auth($email, $password);
-      $loginResult = $auth->login();
+      $auth = new Auth();
+      $loginResult = $auth->login($email, $password);
 
       // Verifica o resultado do login e define a mensagem de erro
       if ($loginResult === "success") {

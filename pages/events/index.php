@@ -1,5 +1,7 @@
 <?php
     require_once '../../class/Event.php';
+    require_once '../../class/Auth.php';
+  Auth::requireAuth();
     $eventObj = new Event();
     $events = $eventObj->listEventsByUser();
 ?>
@@ -26,6 +28,7 @@
             <li class="text-blue-500 hover:text-blue-700"><a href="/eventsManager/pages/events">Meus eventos</a></li>
             <li class="text-blue-500 hover:text-blue-700"><a href="/eventsManager/pages/events/upsert" class="">Criar evento</a></li>
             <li class="text-blue-500 hover:text-blue-700"><a href="/eventsManager/pages/events/participating" class="">Eventos participando</a></li>
+            <li class="text-blue-500 hover:text-blue-700"><a href="/eventsManager/logout.php">Sair</a></li>
         </ul>
         </div>
         
