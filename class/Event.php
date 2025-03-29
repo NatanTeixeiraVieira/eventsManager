@@ -1,188 +1,150 @@
 <?php
-  require_once 'DbConnection.php';
+require_once 'DbConnection.php';
 
-  class Event extends DbConnection {
+class Event extends DbConnection {
     public function __construct() {
-      $sql = "CREATE TABLE IF NOT EXISTS events (
-        id INT(11) AUTO_INCREMENT PRIMARY KEY,
-        name VARCHAR(100) NOT NULL,
-        description varchar(255) NOT NULL,
-        location varchar(255) NOT NULL,
-        date DATETIME NOT NULL,
-        created_by INT(11) NOT NULL,
-        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-        updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-      )";
+        $sql = "CREATE TABLE IF NOT EXISTS events (
+            id INT(11) AUTO_INCREMENT PRIMARY KEY,
+            name VARCHAR(100) NOT NULL,
+            description varchar(255) NOT NULL,
+            location varchar(255) NOT NULL,
+            date DATETIME NOT NULL,
+            created_by INT(11) NOT NULL,
+            created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+            updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+        )";
 
+        $this->conn = $this->getConnection();
+        $this->conn->exec($sql);
 
-      $this->conn = DbConnection::getConnection();
-      $this->conn->query($sql);
+        $sql = "CREATE TABLE IF NOT EXISTS user_events (
+            id INT(11) AUTO_INCREMENT PRIMARY KEY,
+            user_id INT(11) NOT NULL,
+            event_id INT(11) NOT NULL,
+            created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+            updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+        )";
 
-      $sql = "CREATE TABLE IF NOT EXISTS user_events (
-        id INT(11) AUTO_INCREMENT PRIMARY KEY,
-        user_id INT(11) NOT NULL,
-        event_id INT(11) NOT NULL,
-        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-        updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-      )";
-
-
-      $this->conn = DbConnection::getConnection();
-      $this->conn->query($sql);
+        $this->conn->exec($sql);
     }
 
     public function listEvents() {
-      // session_start();
+        $sql = "SELECT 
+            e.id, 
+            e.name, 
+            e.description, 
+            e.location, 
+            e.date, 
+            u.name AS created_by, 
+            e.created_at, 
+            e.updated_at
+        FROM events e
+        LEFT JOIN users u ON e.created_by = u.id
+        ORDER BY e.date ASC;";
 
-      $loggedUserId = $_SESSION['user_id'];
-      $sql = "SELECT 
-        e.id, 
-        e.name, 
-        e.description, 
-        e.location, 
-        e.date, 
-        u.name AS created_by, 
-        e.created_at, 
-        e.updated_at
-      FROM events e
-      LEFT JOIN users u ON e.created_by = u.id
-      ORDER BY e.date ASC;";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->execute();
 
-if (!$stmt = $this->conn->prepare($sql)) {
-  // Exibir o erro detalhado da consulta
-  echo "Erro ao preparar a consulta: " . $this->conn->error;
-  return false;
-}
-
-// Executar a consulta
-if (!$stmt->execute()) {
-  // Exibir o erro detalhado na execução
-  echo "Erro ao executar a consulta: " . $stmt->error;
-  return false;
-}
-
-      $result = $stmt->get_result();
-      return $result->fetch_all(MYSQLI_ASSOC);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
     public function listEventsByUser() {
-      session_start();
+        session_start();
 
-      $loggedUserId = $_SESSION['user_id'];
-      $sql = "SELECT 
-        e.id, 
-        e.name, 
-        e.description, 
-        e.location, 
-        e.date, 
-        u.name AS created_by, 
-        e.created_at, 
-        e.updated_at
-      FROM events e
-      LEFT JOIN users u ON e.created_by = u.id
-      WHERE u.id = ?
-      ORDER BY e.date ASC;";
+        $loggedUserId = $_SESSION['user_id'];
+        $sql = "SELECT 
+            e.id, 
+            e.name, 
+            e.description, 
+            e.location, 
+            e.date, 
+            u.name AS created_by, 
+            e.created_at, 
+            e.updated_at
+        FROM events e
+        LEFT JOIN users u ON e.created_by = u.id
+        WHERE u.id = ?
+        ORDER BY e.date ASC;";
 
-      $stmt = $this->conn->prepare($sql);
-      $stmt->bind_param("i", $loggedUserId);
-      $stmt->execute();
+        $stmt = $this->conn->prepare($sql);
+        $stmt->execute([$loggedUserId]);
 
-      $result = $stmt->get_result();
-      return $result->fetch_all(MYSQLI_ASSOC);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    
     public function getEventById($id) {
-      $stmt = $this->conn->prepare("SELECT * FROM events e WHERE e.id = ?");
-      $stmt->bind_param("i", $id);
-      $stmt->execute();
+        $stmt = $this->conn->prepare("SELECT * FROM events e WHERE e.id = ?");
+        $stmt->execute([$id]);
 
-      $result = $stmt->get_result();
-      $fetchResponse = $result->fetch_all(MYSQLI_ASSOC);
-      return reset($fetchResponse);
-   }
-
-    // public function listEvents() {
-    //     $stmt = self::conn->query("SELECT * FROM events");
-    //     return $stmt->fetchAll(PDO::FETCH_ASSOC);
-    // }
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
 
     public function createEvent($name, $description, $location, $dateTime) {
-      session_start();
+        session_start();
 
-      if (!isset($_SESSION['user_id'])) {
-        return false; // Usuário não autenticado
-     }
+        if (!isset($_SESSION['user_id'])) {
+            return false; // Usuário não autenticado
+        }
 
-      $loggedUserId = $_SESSION['user_id'];
+        $loggedUserId = $_SESSION['user_id'];
 
-      try {
-          $stmt = $this->conn->prepare("INSERT INTO events (name, description, location, date, created_by) VALUES (?, ?, ?, ?, ?)");
-          $stmt->bind_param("ssssi", $name, $description, $location, $dateTime, $loggedUserId);
-          return $stmt->execute();
-      } catch (Exception $e) {
-        echo "Erro ao criar evento: " . $e->getMessage();
-          error_log("Erro ao criar evento: " . $e->getMessage());
-          return false;
-      }
+        try {
+            $stmt = $this->conn->prepare("INSERT INTO events (name, description, location, date, created_by) VALUES (?, ?, ?, ?, ?)");
+            return $stmt->execute([$name, $description, $location, $dateTime, $loggedUserId]);
+        } catch (Exception $e) {
+            error_log("Erro ao criar evento: " . $e->getMessage());
+            return false;
+        }
     }
 
     public function updateEvent($id, $name, $description, $location, $dateTime) {
-      session_start();
+        session_start();
 
-      if (!isset($_SESSION['user_id'])) {
-        return false; // Usuário não autenticado
-     }
+        if (!isset($_SESSION['user_id'])) {
+            return false; // Usuário não autenticado
+        }
 
-      $loggedUserId = $_SESSION['user_id'];
+        try {
+            $stmt = $this->conn->prepare("UPDATE events SET name = ?, description = ?, location = ?, date = ? WHERE id = ?");
+            return $stmt->execute([$name, $description, $location, $dateTime, $id]);
+        } catch (Exception $e) {
+            error_log("Erro ao atualizar evento: " . $e->getMessage());
+            return false;
+        }
+    }
 
-      try {
-          $stmt = $this->conn->prepare("UPDATE events SET name = ?, description = ?, location = ?, date = ? WHERE id = ?");
-          $stmt->bind_param("ssssi", $name, $description, $location, $dateTime, $id);
-          return $stmt->execute();
-      } catch (Exception $e) {
-          echo "Erro ao atualizar evento: " . $e->getMessage();
-          error_log("Erro ao atualizar evento: " . $e->getMessage());
-          return false;
-      }
-  }
+    public function deleteEventById($id) {
+        $stmt = $this->conn->prepare("DELETE FROM events WHERE id = ?");
+        return $stmt->execute([$id]);
+    }
 
-  public function deleteEventById($id) {
-    $stmt = $this->conn->prepare("DELETE FROM events e WHERE e.id = ?");
-    $stmt->bind_param("i", $id);
-    return $stmt->execute();
-  }
+    public function getEventsParticipating() {
+        session_start();
 
-  public function getEventsParticipating() {
-    session_start();
+        $loggedUserId = $_SESSION['user_id'];
+        $sql = "SELECT 
+            e.id, 
+            e.name, 
+            e.description, 
+            e.location, 
+            e.date, 
+            u.name AS created_by
+        FROM events e
+        LEFT JOIN users u ON e.created_by = u.id
+        WHERE e.id IN (SELECT event_id FROM user_events WHERE user_id = ?)
+        ORDER BY e.date ASC;";
 
-    $loggedUserId = $_SESSION['user_id'];
-    $sql = "SELECT 
-      e.id, 
-      e.name, 
-      e.description, 
-      e.location, 
-      e.date, 
-      u.name AS created_by
-    FROM events e
-    LEFT JOIN users u ON e.created_by = u.id
-    WHERE e.id IN (SELECT event_id FROM user_events WHERE user_id = ?)
-    ORDER BY e.date ASC;";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->execute([$loggedUserId]);
 
-    $stmt = $this->conn->prepare($sql);
-    $stmt->bind_param("i", $loggedUserId);
-    $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
 
-    $result = $stmt->get_result();
-    return $result->fetch_all(MYSQLI_ASSOC);
-  }
+    public function participateEvent($event_id) {
+        session_start();
 
-  public function participateEvent($event_id) {
-    $loggedUserId = $_SESSION['user_id'];
-    $stmt = $this->conn->prepare("INSERT INTO user_events (event_id, user_id) VALUES (?, ?)");
-    $stmt->bind_param("ii", $event_id, $loggedUserId);
-
-    return $stmt->execute();
+        $loggedUserId = $_SESSION['user_id'];
+        $stmt = $this->conn->prepare("INSERT INTO user_events (event_id, user_id) VALUES (?, ?)");
+        return $stmt->execute([$event_id, $loggedUserId]);
+    }
 }
-  }
-?>

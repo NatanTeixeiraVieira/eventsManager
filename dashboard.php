@@ -18,7 +18,7 @@
     <title>Dashboard</title>
 </head>
 <body>
-    <header der class="flex justify-start gap-10 w-full items-center p-4 bg-white shadow-md">
+    <header class="flex justify-start gap-10 w-full items-center p-4 bg-white shadow-md">
         <div class="text-2xl font-bold">
         <img src="./public/events.png" alt="Logo" class="inline-block w-16 h-16 mr-2">
         </div>
@@ -27,7 +27,7 @@
         <ul class="flex justify-around items-center w-[40rem] ">
             <li class="text-blue-500 hover:text-blue-700"><a href="/eventsManager/dashboard.php">Ver eventos</a></li>
             <li class="text-blue-500 hover:text-blue-700"><a href="/eventsManager/pages/events">Meus eventos</a></li>
-            <li class="text-blue-500 hover:text-blue-700"><a href="/eventsManager/pages/events/upsert" class="">Agendar evento</a></li>
+            <li class="text-blue-500 hover:text-blue-700"><a href="/eventsManager/pages/events/upsert" class="">Criar evento</a></li>
             <li class="text-blue-500 hover:text-blue-700"><a href="/eventsManager/pages/events/participating" class="">Eventos participando</a></li>
         </ul>
         </div>

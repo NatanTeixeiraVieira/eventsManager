@@ -14,11 +14,28 @@
   <script src="https://cdn.tailwindcss.com"></script>
 </head>
 
-<body class="bg-gray-100 h-screen flex items-center justify-center">
-  <div class="bg-white p-8 rounded-lg shadow-lg w-96 relative">
-    <div class="absolute top-4 left-4">
+
+<body class="bg-gray-100 flex flex-col items-center justify-center">
+    <header class="flex justify-start gap-10 w-full items-center p-4 bg-white shadow-md">
+        <div class="text-2xl font-bold">
+        <img src="../../../public/events.png" alt="Logo" class="inline-block w-16 h-16 mr-2">
+        </div>
+
+        <div>
+        <ul class="flex justify-around items-center w-[40rem] ">
+            <li class="text-blue-500 hover:text-blue-700"><a href="/eventsManager/dashboard.php">Ver eventos</a></li>
+            <li class="text-blue-500 hover:text-blue-700"><a href="/eventsManager/pages/events">Meus eventos</a></li>
+            <li class="text-blue-500 hover:text-blue-700"><a href="/eventsManager/pages/events/upsert" class="">Criar evento</a></li>
+            <li class="text-blue-500 hover:text-blue-700"><a href="/eventsManager/pages/events/participating" class="">Eventos participando</a></li>
+        </ul>
+        </div>
+        
+        
+    </header>
+  <main class="bg-white p-8 mt-4 rounded-lg shadow-lg w-96 relative">
+    <!-- <div class="absolute top-4 left-4">
       <a href="../../../dashboard.php" class="text-blue-500 font-medium hover:text-blue-600">Voltar</a>
-    </div>
+    </div> -->
     <h2 class="text-2xl font-bold mb-6 text-center">
       <?= $isEditing ? 'Editar Evento' : 'Criar Evento' ?>
     </h2>
@@ -62,7 +79,7 @@
         </button>
       </div>
     </form>
-  </div>
+  </main>
 </body>
 
 </html>

@@ -14,27 +14,24 @@ class User extends DbConnection {
             email VARCHAR(100) NOT NULL UNIQUE,
             password VARCHAR(255) NOT NULL
         )";
+
         $this->name = $name;
         $this->email = $email;
         $this->password = $password;
         
-        $this->conn = DbConnection::getConnection();
-        $this->conn->query($sql);
+        $this->conn = $this->getConnection();
+        $this->conn->exec($sql);
     }
 
     public function createUser() {
+        $hashedPassword = password_hash($this->password, PASSWORD_DEFAULT);
 
-            $hashedPassword = password_hash($this->password, PASSWORD_DEFAULT);
+        $sql = "INSERT INTO users (name, email, password) VALUES (?, ?, ?)";
+        $stmt = $this->conn->prepare($sql);
 
-            $sql = "INSERT INTO users (name, email, password) VALUES (?, ?, ?)";
-            $stmt = $this->conn->prepare($sql);
-            $stmt->bind_param("sss", $this->name, $this->email, $hashedPassword);
-
-            if ($stmt->execute()) {
-                return "Usuário criado com sucesso!";
-            } else {
-                return "Erro ao criar o usuário: " . $this->$conn->error;
-            }
+        return $stmt->execute([$this->name, $this->email, $hashedPassword])
+            ? "Usuário criado com sucesso!"
+            : "Erro ao criar o usuário.";
     }
 }
 ?>

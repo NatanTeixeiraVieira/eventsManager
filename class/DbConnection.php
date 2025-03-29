@@ -1,26 +1,29 @@
 <?php
 class DbConnection {
-    private static $conn;
+    private $conn;
 
     public function __construct() {
-        self::setConnection();
+        $this->setConnection();
     }
 
-    public static function setConnection() {
-        if (self::$conn === null) {
-            self::$conn = new mysqli('localhost', 'root', 'admin', 'eventsmanager');
-
-            if (self::$conn->connect_error) {
-                die("Conexão falhou: " . self::$conn->connect_error);
+    public function setConnection() {
+        if ($this->conn === null) {
+            try {
+                $this->conn = new PDO('mysql:host=localhost;dbname=eventsmanager', 'root', 'root');
+                $this->conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+                // $this::$conn->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
+            } catch (PDOException $e) {
+                die("Conexão falhou: " . $e->getMessage());
             }
         }
     }
 
-    public static function getConnection() {
-        if (self::$conn === null) {
-            self::setConnection();
+    public function getConnection() {
+        if ($this->conn === null) {
+            $this->setConnection();
         }
-        return self::$conn;
+        return $this->conn;
     }
+
 }
 ?>
