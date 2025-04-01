@@ -30,14 +30,14 @@ if (isset($_SESSION['participation_message'])) {
       <h1 class="text-2xl font-bold text-gray-800">Typecode Events</h1>
     </div>
     <nav class="space-x-4">
-      <a href="./pages/login/index.php" class="text-blue-500 font-medium hover:underline">Login</a>
-      <a href="./pages/register/index.php" class="text-blue-500 font-medium hover:underline">Cadastro</a>
+      <a href="./pages/login/index.php" class="text-blue-500 font-medium hover:text-blue-700">Login</a>
+      <a href="./pages/register/index.php" class="text-blue-500 font-medium hover:text-blue-700">Cadastro</a>
     </nav>
   </header>
 
   <!-- Conteúdo Principal -->
-  <main class="flex flex-col items-center text-center mt-24 px-6">
-    <table class="w-full border-collapse border border-gray-300 mt-20">
+  <main class="flex flex-col items-center text-center mt-24 px-6 h-screen">
+    <table class="w-full border-collapse border border-gray-300 bounded-lg mt-20">
       <thead>
         <tr class="bg-gray-200 text-gray-700">
           <th class="border p-2">Nome</th>
