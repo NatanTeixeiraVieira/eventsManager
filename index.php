@@ -35,9 +35,14 @@ if (isset($_SESSION['participation_message'])) {
     </nav>
   </header>
 
-  <!-- Conteúdo Principal -->
-  <main class="flex flex-col items-center text-center mt-24 px-6 h-screen">
-    <table class="w-full border-collapse border border-gray-300 bounded-lg mt-20">
+  <main class="flex flex-col items-center text-center mt-24 px-6 h-full">
+  <div class="w-[40vw] mt-10">
+      <p>
+      "Bem-vindo ao Typecode Events! 🎉
+      Aqui você encontra eventos incríveis para participar e se conectar com pessoas que compartilham seus interesses. Escolha um evento, faça seu login e garanta sua participação. Não perca essa oportunidade de viver novas experiências!"
+      </p>
+    </div>
+    <table class="w-full border-collapse border border-gray-300 bounded-lg mt-10">
       <thead>
         <tr class="bg-gray-200 text-gray-700">
           <th class="border p-2">Nome</th>
