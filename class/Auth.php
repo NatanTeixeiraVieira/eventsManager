@@ -30,14 +30,14 @@ class Auth extends DbConnection {
   public function logout() {
     session_start();
     session_destroy();
-    header("Location: /eventsManager/pages/login");
+    header("Location: index.php");
     exit;
   }
 
   public static function requireAuth() {
     session_start();
     if (!isset($_SESSION['user_id'])) {
-        header("Location: /eventsManager/pages/login");
+        header("Location: /aulas/eventsManager/pages/login");
         exit;
     }
   }

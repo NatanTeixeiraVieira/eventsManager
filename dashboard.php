@@ -23,11 +23,11 @@
 
         <div>
         <ul class="flex justify-around items-center w-[40rem] ">
-            <li class="text-blue-500 hover:text-blue-700"><a href="/eventsManager/dashboard.php">Ver eventos</a></li>
-            <li class="text-blue-500 hover:text-blue-700"><a href="/eventsManager/pages/events">Meus eventos</a></li>
-            <li class="text-blue-500 hover:text-blue-700"><a href="/eventsManager/pages/events/upsert" class="">Criar evento</a></li>
-            <li class="text-blue-500 hover:text-blue-700"><a href="/eventsManager/pages/events/participating" class="">Eventos participando</a></li>
-            <li class="text-blue-500 hover:text-blue-700"><a href="/eventsManager/logout.php">Sair</a></li>
+            <li class="text-blue-500 hover:text-blue-700"><a href="/aulas/eventsManager/dashboard.php">Ver eventos</a></li>
+            <li class="text-blue-500 hover:text-blue-700"><a href="/aulas/eventsManager/pages/events">Meus eventos</a></li>
+            <li class="text-blue-500 hover:text-blue-700"><a href="/aulas/eventsManager/pages/events/upsert" class="">Criar evento</a></li>
+            <li class="text-blue-500 hover:text-blue-700"><a href="/aulas/eventsManager/pages/events/participating" class="">Eventos participando</a></li>
+            <li class="text-blue-500 hover:text-blue-700"><a href="/aulas/eventsManager/logout.php">Sair</a></li>
             </ul>   
         </div>
         

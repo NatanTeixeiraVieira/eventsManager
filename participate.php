@@ -8,7 +8,7 @@
         $eventId = $_POST['event_id'];
         $eventObj->participateEvent($eventId);
         echo "alert('Participação confirmada')";
-        header("Location: index.php");
+        header("Location: ./pages/participating/index.php");
         exit;
     }
 ?>

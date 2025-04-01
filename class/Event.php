@@ -119,7 +119,9 @@ class Event extends DbConnection {
     }
 
     public function getEventsParticipating() {
-        session_start();
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
 
         $loggedUserId = $_SESSION['user_id'];
         $sql = "SELECT 
