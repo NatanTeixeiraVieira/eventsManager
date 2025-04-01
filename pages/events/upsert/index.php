@@ -17,7 +17,7 @@
 </head>
 
 
-<body class="bg-gray-100 flex flex-col items-center justify-center">
+<body class="bg-gradient-to-r from-blue-400 to-cyan-400 flex flex-col items-center justify-center">
 <header class="flex justify-start gap-10 w-full items-center p-4 bg-white shadow-md">
         <div class="text-2xl font-bold">
         <img src="../../../public/events.png" alt="Logo" class="inline-block w-16 h-16 mr-2">

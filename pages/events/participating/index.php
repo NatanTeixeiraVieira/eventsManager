@@ -17,7 +17,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 
-<body class="bg-gray-100 min-h-screen flex flex-col items-center ">
+<body class="bg-gradient-to-r from-blue-400 to-cyan-400 min-h-screen flex flex-col items-center ">
 <header class="flex justify-start gap-10 w-full items-center p-4 bg-white shadow-md">
         <div class="text-2xl font-bold">
         <img src="../../../public/events.png" alt="Logo" class="inline-block w-16 h-16 mr-2">

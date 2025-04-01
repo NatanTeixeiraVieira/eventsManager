@@ -15,7 +15,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <title>Dashboard</title>
 </head>
-<body>
+<body class="bg-gradient-to-r from-blue-400 to-cyan-400 min-h-screen flex flex-col items-center ">
     <header class="flex justify-start gap-10 w-full items-center p-4 bg-white shadow-md">
         <div class="text-2xl font-bold">
         <img src="./public/events.png" alt="Logo" class="inline-block w-16 h-16 mr-2">
@@ -34,7 +34,7 @@
         
     </header>
 
-    <div class="w-full bg-white p-6 rounded-lg shadow-md">
+    <div class="w-full max-w-6xl bg-white p-6 rounded-lg shadow-md mt-8">
         <table class="w-full border-collapse border border-gray-300">
             <thead>
                 <tr class="bg-gray-200">
