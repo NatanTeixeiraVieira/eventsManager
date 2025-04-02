@@ -4,6 +4,7 @@
     $eventObj = new Event();
     $event = null;
     $isEditing = false;
+    $errorMessage = "";
 
     // Verifica se há um ID na URL
     if (isset($_GET['id']) && is_numeric($_GET['id'])) {
@@ -22,7 +23,7 @@
 
         $currentDateTime = time(); 
 
-        if ($dateTime < $currentDateTime) {
+        if (strtotime($dateTime) < $currentDateTime) {
             echo "A data e hora selecionadas já passaram!";
             exit;
         }

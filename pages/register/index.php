@@ -1,36 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt-br">
-
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Cadastro</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <!-- <link rel="stylesheet" href="styles-register.css"> -->
-  <style>
-    .error-message {
-      color: red;
-      font-size: 14px;
-      margin-top: 5px;
-    }
-
-    .valid-message {
-      color: green;
-      font-size: 14px;
-      margin-top: 5px;
-    }
-  </style>
-</head>
-
-<body class="bg-gradient-to-r from-blue-400 to-cyan-400 h-screen flex items-center justify-center">
-
-  <div class="bg-white p-8 rounded-lg shadow-lg w-96 relative">
-    <div class="absolute top-4 left-4">
-      <a href="../../index.php" class="text-blue-500 font-medium hover:text-blue-600">Voltar</a>
-    </div>
-    <h2 class="text-2xl font-bold mb-6 text-center">Cadastro</h2>
-
-    <?php
+<?php
     require_once '../../class/User.php';
 
     $usernameError = $emailError = $passwordError = "";
@@ -87,16 +56,49 @@
     }
     ?>
 
+<html lang="pt-br">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cadastro</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- <link rel="stylesheet" href="styles-register.css"> -->
+  <style>
+    .error-message {
+      color: red;
+      font-size: 14px;
+      margin-top: 5px;
+    }
+
+    .valid-message {
+      color: green;
+      font-size: 14px;
+      margin-top: 5px;
+    }
+  </style>
+</head>
+
+<body class="bg-gradient-to-r from-blue-400 to-cyan-400 h-screen flex items-center justify-center">
+
+  <div class="bg-white p-8 rounded-lg shadow-lg w-96 relative">
+    <div class="absolute top-4 left-4">
+      <a href="../../index.php" class="text-blue-500 font-medium hover:text-blue-600">Voltar</a>
+    </div>
+    <h2 class="text-2xl font-bold mb-6 text-center">Cadastro</h2>
+
+
+
     <form action="index.php" method="POST">
       <div class="mb-4">
         <label for="username" class="block text-gray-700 font-medium mb-2">Username:</label>
-        <input type="text" id="username" name="username" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-1 focus:ring-blue-500" value="<?= htmlspecialchars($_POST['username'] ?? '') ?>">
+        <input type="text" id="username" name="username" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-1 focus:ring-blue-500" value="<?= htmlspecialchars($username ?? '') ?>">
         <p id="username-error" class="error-message"><?= $usernameError ?></p>
       </div>
 
       <div class="mb-4">
         <label for="email" class="block text-gray-700 font-medium mb-2">Email:</label>
-        <input type="email" id="email" name="email" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-1 focus:ring-blue-500" value="<?= htmlspecialchars($_POST['email'] ?? '') ?>">
+        <input type="email" id="email" name="email" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-1 focus:ring-blue-500" value="<?= htmlspecialchars($email ?? '') ?>">
         <p id="email-error" class="error-message"><?= $emailError ?></p>
       </div>
 

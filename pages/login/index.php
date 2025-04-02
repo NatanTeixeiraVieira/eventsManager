@@ -55,13 +55,13 @@
     <form action="index.php" method="POST">
       <div class="mb-4">
         <label for="email" class="block text-gray-700 font-medium mb-2">Email:</label>
-        <input type="text" id="email" name="email" required
+        <input type="text" id="email" name="email" value="<?= htmlspecialchars($email ?? '') ?>"
                class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-1 focus:ring-blue-500">
       </div>
 
       <div class="mb-6">
         <label for="password" class="block text-gray-700 font-medium mb-2">Senha:</label>
-        <input type="password" id="password" name="password" required
+        <input type="password" id="password" name="password"
                class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-1 focus:ring-blue-500">
       </div>
       <div class="flex flex-col items-start justify-center gap-3">
