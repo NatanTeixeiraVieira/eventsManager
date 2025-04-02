@@ -34,7 +34,6 @@
         }
 
         if ($id) {
-            // Atualizar evento
             if ($eventObj->updateEvent($id, $name, $description, $location, $dateTime)) {
                 header("Location: ../index.php?success=Evento atualizado com sucesso");
                 exit;
@@ -42,7 +41,6 @@
                 echo "Erro ao atualizar evento!";
             }
         } else {
-            // Criar evento
             if ($eventObj->createEvent($name, $description, $location, $dateTime)) {
                 header("Location: ../index.php?success=Evento criado com sucesso");
                 exit;

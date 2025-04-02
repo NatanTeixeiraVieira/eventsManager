@@ -1,7 +1,7 @@
 <?php
   require_once '../../class/Auth.php';
 
-  $error = ''; // Variável para armazenar a mensagem de erro
+  $error = '';
 
   if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $email = isset($_POST['email']) ? $_POST['email'] : null;
@@ -11,7 +11,6 @@
       $auth = new Auth();
       $loginResult = $auth->login($email, $password);
 
-      // Verifica o resultado do login e define a mensagem de erro
       if ($loginResult === "success") {
         header("Location: ../../dashboard.php");
         exit();
@@ -34,7 +33,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Login</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <!-- <link rel="stylesheet" href="styles-login.css"> -->
 </head>
 
 <body class="bg-gradient-to-r from-blue-400 to-cyan-400 h-screen flex items-center justify-center">
@@ -47,7 +45,6 @@
     
     <h2 class="text-2xl font-bold mb-6 text-center">Login</h2>
 
-    <!-- Exibe a mensagem de erro, se houver -->
     <?php if (!empty($error)): ?>
       <div class="text-red-500 mb-4"><?= $error; ?></div>
     <?php endif; ?>
